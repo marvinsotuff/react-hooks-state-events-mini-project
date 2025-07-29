@@ -1,23 +1,23 @@
+// src/components/TaskList.js
 import React from "react";
+import Task from "./Task"; // Make sure this import path is correct
 
-
-import { TASKS } from "../data";
-
-const [tasks, setTasks] = useState(TASKS);
-const [selectedCategory, setSelectedCategory] = useState("All");
-
-const filteredTasks = selectedCategory === "All"
-  ? tasks
-  : tasks.filter(task => task.category === selectedCategory);
-
-function TaskList({ TASKS }) {
+function TaskList({ tasks, onDeleteTask }) { // TaskList expects 'tasks' array and 'onDeleteTask'
   return (
-    <div className="tasks">
-      {TASK.map((task) => (
-        <Task key={task.text} task={task} />
-      ))}
+    <div className="task-list">
+      {/* Check if tasks array exists and has items before mapping */}
+      {tasks && tasks.length > 0 ? (
+        tasks.map((task) => (
+          // Key prop is crucial for lists in React
+          // Pass the entire 'task' object to the Task component
+          <Task key={task.id || task.text} task={task} onDeleteTask={onDeleteTask} />
+        ))
+      ) : (
+        <p>No tasks to display.</p> // Optional: message when no tasks are present
+      )}
     </div>
   );
 }
 
 export default TaskList;
+
