@@ -1,9 +1,21 @@
 import React from "react";
 
-function TaskList() {
+
+import { TASKS } from "../data";
+
+const [tasks, setTasks] = useState(TASKS);
+const [selectedCategory, setSelectedCategory] = useState("All");
+
+const filteredTasks = selectedCategory === "All"
+  ? tasks
+  : tasks.filter(task => task.category === selectedCategory);
+
+function TaskList({ TASKS }) {
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      {TASK.map((task) => (
+        <Task key={task.text} task={task} />
+      ))}
     </div>
   );
 }
